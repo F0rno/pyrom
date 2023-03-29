@@ -1,19 +1,18 @@
 """This modules allows you to generate ROMs, write in them and saved it into files"""
 
 class ROM:
-    def __init__(self, header="", size=0x0, step=1, data_sizes=0, show_addr_column=True):
+    def __init__(self, header="", size=0x0, columns=1, data_sizes=0, show_addr_column=True):
         self.tittle = f"{header}\n"
         self.size = size
-        self.step = step
+        self.columns = columns
         self.data_sizes = data_sizes
-        self.columns = step
         self.show_addr_column = show_addr_column
         self.zfillForAddr = len(hex(self.size).replace("0x", ""))
         self.ROM = {}
 
     def init_empty_ROM(self):
         """Initializes an empty rom"""
-        for addr in range(0, self.size+1, self.step):
+        for addr in range(0, self.size+1, self.columns):
             addr = hex(addr).replace("0x", "")
             formatedAddr = addr.zfill(self.zfillForAddr)
             self.ROM[formatedAddr] = ["0"*self.data_sizes for _ in range(self.columns)]
